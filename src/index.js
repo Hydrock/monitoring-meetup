@@ -1,5 +1,15 @@
 'use strict';
 
+// logger
+const SimpleNodeLogger = require('simple-node-logger'),
+    opts = {
+        logFilePath:'mylogfile.log',
+        timestampFormat:'YYYY-MM-DD HH:mm:ss.SSS'
+    },
+logger = SimpleNodeLogger.createSimpleLogger( opts );
+logger.info('Мониторинг запущен!');
+// /logger
+
 const nodemailer = require('nodemailer');
 const http = require('http');
 // const https = require('https'); // Этот модуль если запрос по протоколу https
@@ -29,12 +39,12 @@ function setMonitor () {
     // запускаем мониторинг еще раз, иначе пишем что пора регистрироваться!
     if (index !== -1) {
         setTimeout(() => {
-            console.log('Пока ничего нет...');
+            logger.info('Пока ничего нет...');
             // Запускаем пониторинг повторно
             setMonitor();
         }, timePeriod);
     } else {
-        console.log('Ура! Доступно! Скорее регайся!');
+        logger.info('Ура! Доступно! Скорее регайся!');
         // Отправляем тут письмо.
         sendMail(mailOptions);
     }
@@ -74,17 +84,15 @@ function sendMail(mailOptions) {
             }
         });
     } catch (e) {
-        return console.log('Ошибка: ' + e.name + ":" + e.message);
+        return logger.error('Ошибка: ' + e.name + ":" + e.message);
     }
 
     // Отправляем письмо
     smtpTransport.sendMail(mailOptions, (error, info) => {
         if (error) {
-          return console.log('Ошибка');
+          return logger.error('Ошибка');
         } else {
-          console.log('Сообщение отправлено: %s', info.messageId);
+            logger.info('Сообщение отправлено: %s', info.messageId);
         }
     });
 }
-
-console.log('Мониторинг запущен!');
