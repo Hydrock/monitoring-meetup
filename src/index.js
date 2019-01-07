@@ -6,7 +6,7 @@ const http = require('http');
 
 const targetLink = 'http://nekrasovka.ru/afisha/19-01-2019/1224';
 
-const timePeriod = 1000 * 60 * 5; // будем проверять каждые 5 минут
+const timePeriod = 1000; // будем проверять каждые 5 минут
 let index;
 function setMonitor () {
     // Тут делаем запрос и формируем тело ответа
@@ -86,3 +86,5 @@ function sendMail(mailOptions) {
         }
     });
 }
+
+console.log('Мониторинг запущен!');
