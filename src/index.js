@@ -7,6 +7,7 @@ const SimpleNodeLogger = require('simple-node-logger'),
         timestampFormat:'YYYY-MM-DD HH:mm:ss.SSS'
     },
 logger = SimpleNodeLogger.createSimpleLogger( opts );
+logger.info('-------------------');
 logger.info('Мониторинг запущен!');
 // /logger
 
