@@ -2,15 +2,16 @@
 
 const nodemailer = require('nodemailer');
 const http = require('http');
-// const https = require('https'); // Этот модуль если запрос по протоколу https
+const https = require('https'); // Этот модуль если запрос по протоколу https
 
-const targetLink = 'http://nekrasovka.ru/afisha/19-01-2019/1224';
+//const targetLink = 'http://nekrasovka.ru/afisha/19-01-2019/1224';
+const targetLink = 'https://gist.github.com/Hydrock/af73cd10eb0b93d017e228be1c13e080';
 
 const timePeriod = 1000; // будем проверять каждые 5 минут
 let index;
 function setMonitor () {
     // Тут делаем запрос и формируем тело ответа
-    http.get(targetLink, (res) => {
+    https.get(targetLink, (res) => {
         // Так как тело ответа прилетает порциями,
         // кладем все в массив и затем формируем строку ответа
         let body = [];
